@@ -100,3 +100,17 @@ export const getAllCategories = async (req, res) => {
         console.log(error)
     }
 }
+
+export const updateOrder = async (req, res) => {
+    try {
+      const { categories } = req.body; // Expecting an array of { id, order }
+      const updatePromises = categories.map(category => 
+        Category.findByIdAndUpdate(category.id, { order: category.order })
+      );
+      await Promise.all(updatePromises);
+      res.status(200).json({ message: "Order updated successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Problem updating order!", error: error.message });
+      console.log(error);
+    }
+  };
