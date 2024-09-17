@@ -92,3 +92,14 @@ export const getAllProducts = async (req, res) => {
         console.log(error)
     }
 }
+
+// delete all
+export const productsThanos = async (req, res) => {
+    try {
+        await Product.deleteMany({});
+        return res.status(200).send('cleaned product table');
+    } catch (error) {
+        res.status(500).json({ message: "problem deleting products!", error: error.message });
+        console.log(error)
+    }
+}
